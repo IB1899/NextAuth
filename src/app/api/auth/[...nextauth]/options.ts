@@ -1,6 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google"
 import GitHubProvider from "next-auth/providers/github"
+import FacebookProvider from "next-auth/providers/facebook"
 import DiscordProvider from "next-auth/providers/discord"
 import { NextAuthOptions, Session } from "next-auth";
 import clientPromise from "@/backend/config/MongoDBAdaptor";
@@ -64,7 +65,7 @@ let authOptions: NextAuthOptions = {
                     let user = await response.json() as session | any;
 
                     console.log(user);
-                    
+
                     //! We must set any cookies here for SignUp & and LogIn
                     if (user.token) {
                         cookies().set("jwt", user.token)
@@ -83,6 +84,11 @@ let authOptions: NextAuthOptions = {
         GitHubProvider({
             clientId: process.env.GITHUB_ID as string,
             clientSecret: process.env.GITHUB_SECRET as string
+        }),                                                                                                                                                                                                                                                                                                         
+
+        FacebookProvider({
+            clientId: process.env.FACEBOOK_ID as string,
+            clientSecret: process.env.FACEBOOK_SECRET as string
         }),
 
         DiscordProvider({
@@ -123,9 +129,9 @@ let authOptions: NextAuthOptions = {
 
         //! This will run after a successful sign in
         async signIn({ user, account, credentials }) {
-            // console.log("The credentials that the user entered", credentials)
-            // console.log("account:", account)
-            // console.log("The backend response", user);
+            console.log("The credentials that the user entered", credentials)
+            console.log("account:", account)
+            console.log("The backend response", user);
 
             return true
         }

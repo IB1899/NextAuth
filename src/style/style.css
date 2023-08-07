@@ -52,3 +52,8 @@ body Header nav button {
     font-size: 18px;
   }
 }
+body .Home {
+  background: red;
+  padding: 0px;
+  color: black;
+}

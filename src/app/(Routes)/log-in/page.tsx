@@ -75,6 +75,7 @@ export default function LogIn() {
 
             <button onClick={() => signIn("google")}>Or Log in with your Google account</button>
             <button onClick={() => signIn("github")}>Or Log in with your GitHub account</button>
+            <button onClick={() => signIn("facebook")}>Or Log in with your Facebook account</button>
             <button onClick={() => signIn("discord")}>Or Log in with your  Discord account</button>
         </div>
     )

@@ -83,7 +83,7 @@ export default function SignUp() {
             </form>
 
             <button onClick={() => signIn("google")}>Or sign in with your Google account</button>
-
+            <button onClick={() => signIn("facebook")}>Or Log in with your Facebook account</button>
             <button onClick={() => signIn("github")}>Or sign in with your GitHub account</button>
         </div>
     )
