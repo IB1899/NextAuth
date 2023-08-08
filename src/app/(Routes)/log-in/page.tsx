@@ -1,12 +1,11 @@
 "use client"
-
 import { getSession, signIn, useSession } from "next-auth/react"
 import { redirect, useRouter } from "next/navigation"
 import { FormEvent, MutableRefObject, useRef, useState } from "react"
 
 export default function LogIn() {
 
-    let { data } = useSession();
+    let { data } = useSession(); //! Getting session in client component
     if (data?.user.email) redirect("/");
 
     let router = useRouter()
@@ -55,7 +54,6 @@ export default function LogIn() {
             redirect("/")
         }
     }
-
     return (
         <div className="LogIn">
 

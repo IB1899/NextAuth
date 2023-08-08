@@ -37,3 +37,4 @@ const RootNavBar = () => {
 }
 
 export default RootNavBar;
+

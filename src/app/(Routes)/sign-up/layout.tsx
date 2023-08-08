@@ -1,4 +1,3 @@
-
 import type { Metadata } from 'next'
 import Link from "next/link"
 import { useSession } from "next-auth/react"
@@ -32,3 +31,5 @@ export default async function RootLayout({
         </>
     )
 }
+
+

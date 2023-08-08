@@ -1,5 +1,4 @@
 "use client"
-
 import { FormEvent, MutableRefObject, useRef, useState } from "react"
 import { signIn, useSession } from "next-auth/react";
 import validator from "validator";

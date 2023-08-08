@@ -3,10 +3,7 @@ import AuthModel from "@/backend/database/model/Auth"
 import * as jose from "jose"
 import bcrypt from "bcrypt"
 import { NextResponse } from "next/server"
-import { cookies } from 'next/headers'
-
 MongodbConnection()
-
 
 export async function POST(request: Request) {
     try {
@@ -36,11 +33,9 @@ export async function POST(request: Request) {
         return NextResponse.json({ email: user.email, id: user._id, success: "You have logged in successfully", token })
     }
     catch (err: any) {
-
         let Error = { error: "" }
-
         Error.error = err.message
-        //@ts-ignore
-        return Response.json(Error)
+        return NextResponse.json(Error)
     }
 }
+

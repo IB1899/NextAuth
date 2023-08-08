@@ -6,16 +6,9 @@ import RootNavBar from "@/components/RootNavBar"
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-    title: 'Next Auth',
-    description: 'This is next Auth app',
-}
+export const metadata: Metadata = { title: 'Next Auth', description: 'This is next Auth app' }
 
-export default async function RootLayout({
-    children,
-}: {
-    children: React.ReactNode
-}) {
+export default async function RootLayout({ children, }: { children: React.ReactNode }) {
 
     //? Auth.js by default uses JSON Web Tokens for saving the user's session.
 
@@ -28,7 +21,6 @@ export default async function RootLayout({
     ! 2- Client components(will not turn the page to SSR)-> useSession().
     ! 3- Protect frontend Routes inside the middleware(will not turn the page to SSR)
     */
-    // let session = await getServerSession(authOptions)
 
     /*              //? API ENDPOINTS PROTECTION
     ! 1- inside the route handler itself using the getServerSession().
@@ -48,3 +40,4 @@ export default async function RootLayout({
         </html>
     )
 }
+

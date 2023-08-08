@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken"
 import { withAuth } from "next-auth/middleware";
 
 
@@ -24,3 +23,5 @@ export default withAuth(
 //! Protecting frontend routes inside the middleware
 // export { default } from "next-auth/middleware"
 export const config = { matcher: ["/welcome",] }
+
+
