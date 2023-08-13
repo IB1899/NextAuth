@@ -41,4 +41,17 @@ body{
     }
 
 
+    .SocketIo{ display: grid; justify-content:center;
+
+        input{ margin:5px; }
+        button{ width:100px; margin:5px; }
+
+        .messages{ background:white; padding:10px; border-radius:10px; width:400px;
+            .fromMe{ color:limegreen; translate:100px; }
+            .toMe{ color:red; translate:-100px; }
+        }
+    }
+
+
+    .explore{display:flex;flex-direction:column;align-items:center;input{margin-bottom:10px;}}
 }

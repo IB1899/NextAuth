@@ -57,3 +57,36 @@ body .Home {
   padding: 0px;
   color: black;
 }
+body .SocketIo {
+  display: grid;
+  justify-content: center;
+}
+body .SocketIo input {
+  margin: 5px;
+}
+body .SocketIo button {
+  width: 100px;
+  margin: 5px;
+}
+body .SocketIo .messages {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  width: 400px;
+}
+body .SocketIo .messages .fromMe {
+  color: limegreen;
+  translate: 100px;
+}
+body .SocketIo .messages .toMe {
+  color: red;
+  translate: -100px;
+}
+body .explore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body .explore input {
+  margin-bottom: 10px;
+}

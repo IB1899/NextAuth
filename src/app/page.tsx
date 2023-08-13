@@ -3,6 +3,8 @@
 import { getServerSession } from "next-auth";
 import authOptions from "./api/auth/[...nextauth]/options";
 
+
+
 // select the word then ctrl + shift + l
 export default function Home() {
 
