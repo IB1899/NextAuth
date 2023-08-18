@@ -19,7 +19,7 @@ const RootNavBar = () => {
                         <Link href={"/about"} >About</Link>
                         <Link href={"/welcome"} >Welcome</Link>
                         <Link href={"/socket-io"} >Socket</Link>
-                        <Link href={"/explore"} >explore</Link>
+                        <Link href={"/webRTC"} >webRTC</Link>
 
                         <h3> welcome {session.user.email} </h3>
                         <button onClick={() => signOut()} > SIGN OUT </button>

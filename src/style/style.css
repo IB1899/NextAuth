@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Handjet:wght@500&display=swap");
 * {
   padding: 0;
   margin: 0;
@@ -82,11 +83,138 @@ body .SocketIo .messages .toMe {
   color: red;
   translate: -100px;
 }
-body .explore {
+body .WebRTC {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 86vh;
+  background: purple;
+  font-family: "Handjet", cursive;
+  letter-spacing: 2px;
+}
+body .WebRTC .exit {
+  background: black;
+  color: purple;
+  border: none;
+  font-weight: 800;
+  font-size: 19px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 10px;
+  top: 170px;
+  right: 50px;
+  position: absolute;
+  z-index: 10;
+}
+body .WebRTC .join {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  align-items: center;
+  margin: 20px 0;
+  color: black;
+}
+body .WebRTC .join label {
+  font-size: 20px;
+  font-weight: 800;
+}
+body .WebRTC .join input {
+  background: none;
+  border: 1.5px solid black;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 10px 0;
+  width: 300px;
+}
+body .WebRTC .join button {
+  background: black;
+  color: purple;
+  border: none;
+  font-weight: 800;
+  font-size: 19px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+body .WebRTC .MessagesApp {
+  background: rgb(111, 0, 111);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px black;
+  margin: 20px 20px;
+  height: 550px;
+}
+body .WebRTC .MessagesApp .room {
+  display: grid;
+  justify-content: center;
+  margin: 13px 0;
+}
+body .WebRTC .MessagesApp .room .buttons {
+  margin: 5px;
+  display: flex;
+  margin-top: 15px;
+}
+body .WebRTC .MessagesApp .room .buttons input {
+  background: none;
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 5px;
+  width: 70%;
+}
+body .WebRTC .MessagesApp .room .buttons button {
+  background: black;
+  color: purple;
+  border: none;
+  font-weight: 800;
+  font-size: 19px;
+  padding: 0px 12px;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 10px;
+}
+body .WebRTC .MessagesApp .room .messages {
+  background: black;
+  padding: 10px;
+  border-radius: 10px;
+  width: 400px;
+  height: 410px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-body .explore input {
-  margin-bottom: 10px;
+body .WebRTC .MessagesApp .room .messages p {
+  padding: 2px 5px;
+  width: 70%;
+  font-size: 17px;
+}
+body .WebRTC .MessagesApp .room .messages .fromMe {
+  color: purple;
+  align-self: flex-end;
+  text-align: center;
+}
+body .WebRTC .MessagesApp .room .messages .toMe {
+  color: white;
+  align-self: flex-start;
+  text-align: left;
+}
+body .WebRTC .ChatApp {
+  background: rgb(111, 0, 111);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px black;
+  margin: 20px 20px;
+  height: 550px;
+}
+body .WebRTC .ChatApp video {
+  border-radius: 10px;
+}
+body .WebRTC .ChatApp .remote {
+  width: 200px;
+  margin: 10px;
+  aspect-ratio: 2/1.5;
+  position: absolute;
+  background: black;
+}
+body .WebRTC .ChatApp .local {
+  width: 730px;
 }

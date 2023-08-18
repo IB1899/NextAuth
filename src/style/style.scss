@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@500&display=swap');
+
 *{ padding: 0; margin:0; }
 
 @mixin mobile {
@@ -52,6 +54,52 @@ body{
         }
     }
 
+    .WebRTC{ display:flex;  justify-content:center; align-items:center;  width:100%; min-height:86vh; background:purple;
+        font-family: 'Handjet', cursive;  letter-spacing:2px;
 
-    .explore{display:flex;flex-direction:column;align-items:center;input{margin-bottom:10px;}}
+        .exit{ background:black; color:purple; border:none; font-weight:800; font-size:19px; padding:8px 12px; 
+            cursor:pointer; border-radius:10px; top:170px; right:50px; position:absolute; z-index:10;
+        }
+
+        .join{ display:flex; flex-direction:column; align-self:flex-start; align-items:center; margin:20px 0; color:black;
+            
+            label{ font-size:20px; font-weight:800;  }
+            input{ background:none; border:1.5px solid black; padding:5px; border-radius:5px; margin:10px 0; width:300px; }
+            button{ background:black; color:purple; border:none; font-weight:800; font-size:19px; padding:6px 12px; 
+                cursor:pointer;
+            }
+        }
+
+        .MessagesApp{  background:rgb(111, 0, 111); padding:10px; border-radius:10px;
+            box-shadow:2px 2px 5px black; margin:20px 20px; height:550px;
+
+            .room{ display: grid; justify-content:center;  margin:13px 0;
+
+                .buttons{ margin:5px;  display:flex;  margin-top:15px;
+
+                    input{ background:none; border:2px solid black; padding:10px; border-radius:5px;  width:70%;}
+
+                    button{ background:black; color:purple; border:none; font-weight:800; font-size:19px; padding:0px 12px; 
+                        cursor:pointer; margin-left:10px; border-radius:10px;
+                    }
+               }
+        
+                .messages{ background:black; padding:10px; border-radius:10px; width:400px; height:410px; display:flex; flex-direction:column;
+                    align-items: center; 
+                    p{ padding:2px 5px; width:70%; font-size:17px;}
+                    .fromMe{ color:purple;  align-self:flex-end; text-align:center; }
+                    .toMe{ color:white; align-self:flex-start; text-align:left; }
+                }
+            }
+        }
+
+        .ChatApp{  background:rgb(111, 0, 111);  padding:10px; border-radius:10px; box-shadow:2px 2px 5px black;
+            margin:20px 20px; height:550px;
+            video{border-radius:10px;}
+
+            .remote{ width:200px; margin:10px; aspect-ratio:2/1.5; position:absolute; background:black;}
+            .local{ width:730px;  }
+        }
+    }
+
 }
