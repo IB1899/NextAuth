@@ -4,7 +4,7 @@ import GitHubProvider from "next-auth/providers/github"
 import FacebookProvider from "next-auth/providers/facebook"
 import DiscordProvider from "next-auth/providers/discord"
 import { NextAuthOptions, Session } from "next-auth";
-import clientPromise from "@/backend/config/MongoDBAdaptor";
+import clientPromise from "../../../../backend/config/MongoDBAdaptor";
 import { MongoDBAdapter, MongoDBAdapterOptions } from "@next-auth/mongodb-adapter";
 import { cookies } from "next/headers";
 

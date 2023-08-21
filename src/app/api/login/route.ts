@@ -1,5 +1,5 @@
-import MongodbConnection from "@/backend/database/mongodb"
-import AuthModel from "@/backend/database/model/Auth"
+import MongodbConnection from "../../../backend/database/mongodb"
+import AuthModel from "../../../backend/database/model/Auth"
 import * as jose from "jose"
 import bcrypt from "bcrypt"
 import { NextResponse } from "next/server"

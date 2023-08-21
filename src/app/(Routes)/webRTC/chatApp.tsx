@@ -1,87 +1,102 @@
-import Peer from "peerjs";
 import { MutableRefObject, useEffect, useReducer, useRef, useState } from "react";
-import { Socket } from "socket.io-client";
+import { Socket } from "socket.io-client"; import Peer, { DataConnection } from "peerjs";
+import { VideoShow } from "./video"; import Switch from "./switch";
 
-export default function ChatApp({ socket, room, peer }: { socket: Socket, room: string, peer: Peer }) {
+export interface Connection { peerConnection: RTCPeerConnection }
+type props = { socket: Socket, peer: Peer, room: string, }
 
-    //! To get the camera access from the user -LOCAL VIDEO-
-    const [Stream, setStream] = useState<MediaStream>();
+export default function ChatApp({ socket, peer, room }: props) {
 
-    const [start, setStart] = useState(false);
+    //* For users who are in the room keeping track of their streaming
+    let [users, setUsers] = useState<{ [peerId: string]: MediaStream }>({})
 
-    useEffect(() => {
-        //! This must be running in the initial render, so that it can listen for calls from the local user
-        peer.on("call", (call) => {
-            //* 2- The remote user answered the local's user call
-            call.answer(Stream) //* send the stream of the remote user to the local user
+    //* To get the camera & audio access from the user -LOCAL VIDEO-
+    let [localStream, setLocalStream] = useState<MediaStream | null>(null)
 
-            console.log("runs");
-
-            //* 4- The remote user is receiving the local's user stream
-            call.on("stream", (localUserStream) => {
-                console.log(`remoteUserStream:`, localUserStream)
-                if (Stream) videoRef2.current.srcObject = Stream
-            })
-        })
-    },[Stream])
+    //* Keep track of peers connections
+    const [connections, setConnections] = useState<Record<string, Connection>>({});
 
     useEffect(() => {
 
-        
-        //! This ensures that we are listening for calls before making any calls 
-        
-        let ShowAndShare = async () => {
-            
-                    let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                    setStream(stream)
-            
-            if (!start) return
-            //* Getting the local stream
+        ( async () => { //* This is a self calling function
+            try {
+                //* To get the camera access from the user -LOCAL VIDEO-
+                let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
 
-            socket.on("user-disconnected", ({ peerId, users }: { peerId: string, users: string[] }) => {
-                console.log(peerId, `has left the room. this is a new list of the room members:`, users);
-            })
+                //! This must be running in the initial render, so that it can listen for calls from the local user
+                peer.on("call", (call) => {
+                    //* 2- The remote user answered the local's user call
+                    call.answer(stream) //* send the stream of the remote user to the local user
 
-            socket.on("user-joined-the-room", ({ room, users, peerId }: { room: string, users: string[], peerId: string }) => {
-                console.log(peerId, ` has joined the room.  this is a new list of the room members:`, users);
+                    // peer.on("connection", (connection) => {
+                    //     console.log("Connection event fired for peer:", connection.peer);
+                    //     setConnections((prevConnections) => ({
+                    //         ...prevConnections,
+                    //         [connection.peer]: connection,
+                    //     }));
+                    // });
 
-                //* peerId is the id of the user who joined and stream is the stream of the local user.
-                //* 1- The local user is calling the remote user(who just joined)
-                let call = peer.call(peerId, stream)
-
-                console.log("runs for the local user", peerId, stream);
-
-
-                //* 3- The local user is receiving the remote user stream
-                call.on("stream", (remoteUserStream) => {
-                    videoRef2.current.srcObject = remoteUserStream
-                    console.log("works?");
-
+                    //* 2- The remote user is receiving the local's user stream
+                    call.on("stream", (localUserStream) => {
+                        let id = call.peer //* the Id of the local user
+                        setUsers((prev) => { return { ...prev, [id]: localUserStream } })
+                    })
                 })
 
-                //! When a user leave the video call
-                call.on("close", () => { })
+                setLocalStream(stream)
 
-            })
-        }
-        ShowAndShare()
-    }, [socket, start])
+                //! Remove the user of the list of users in the room when they disconnect (frontend)
+                socket.on("user-disconnected", ({ peerId }: { peerId: string }) => {
 
-    let videoRef1 = useRef() as MutableRefObject<HTMLVideoElement>
-    let videoRef2 = useRef() as MutableRefObject<HTMLVideoElement>
+                    //* Delete a key-value pair from an object through destructuring(separate)
+                    let { [peerId]: deleted, ...rest } = users
 
-    //* Displaying the local user camera stream to the page 
-    if (Stream) videoRef1.current.srcObject = Stream;
+                    // delete  users[peerId]
+                    setUsers(rest)
+                })
+
+                //! When a new user joins the room this will run for every user already in the room4  
+                socket.on("user-joined-the-room", ({ room, users, peerId }: { room: string, users: string[], peerId: string }) => {
+
+                    //* peerId is the id of the user who joined and stream is the stream of the local user.
+                    //* 1- The local user is calling the remote user(who just joined)
+                    let call = peer.call(peerId, stream)
+
+                    // const dataConnection = peer.connect(peerId);
+                    // console.log("Connection event fired for peer:", dataConnection.peer);
+                    // setConnections((prevConnections) => ({
+                    //     ...prevConnections,
+                    //     [dataConnection.peer]: dataConnection,
+                    // }))
+
+                    //* 3- The local user is receiving the remote user stream
+                    call.on("stream", (remoteUserStream) => {
+                        setUsers((prev) => { return { ...prev, [peerId]: remoteUserStream } })
+                    })
+
+                    //! When a user leave the video call
+                    call.on("close", () => { })
+                })
+            }
+            catch (err: any) { console.log(err.message) }
+        })()
+        
+    }, [socket, users])
 
     return (
         <div className="ChatApp">
 
-            <video ref={videoRef2} autoPlay className="remote" ></video>
-            <video ref={videoRef1} autoPlay muted className="local" ></video>
+            {/* The local's user video */}
+            <VideoShow stream={localStream} />
 
+            {/* Switching the video between 1)camera-front & camera-back 2) screen-sharing & camera-sharing 3)on & off */}
+            <Switch connections={connections} setLocalStream={setLocalStream} peer={peer} />
 
-            <button onClick={() => { setStart(true); socket.emit("join-room", { room, peerId: peer.id }); }} >start calling</button>
-
+            {users && Object.values(users).map(user => (
+                <div key={Math.random() * 10}>
+                    <VideoShow stream={user} />
+                </div>
+            ))}
         </div>
     )
 }
